@@ -1,7 +1,7 @@
 {
   "name": "oidc-angular-wso2is",
   "version": "0.9.0",
-  "description": "An Angular single page application demonstrating OAuth2 code flow with PKCE with WSO2 Identity Server",
+  "description": "An Angular single-page application demonstrating OAuth2 code flow with PKCE using WSO2 Identity Server",
   "main": "index.html",
   "author": "Davide Sessi",
   "license": "ISC",
