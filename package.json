@@ -4,7 +4,7 @@
   "description": "An Angular single-page application demonstrating OAuth2 code flow with PKCE using WSO2 Identity Server",
   "main": "index.html",
   "author": "Davide Sessi",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/davebaol/oidc-angular-wso2is.git"
