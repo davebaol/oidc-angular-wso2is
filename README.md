@@ -4,6 +4,9 @@ Simple [Angular](https://angular.io/) single-page application demonstrating [OAu
 
 This version is tested with **WSO2 Identity Server 5.8.0**.
 
+The project is heavily inspired by the article [OpenID Connect with Angular 8](https://christianlydemann.com/openid-connect-with-angular-8-oidc-part-7/).
+
+## Getting started
 The project is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.
 
 - Prepare WSO2 Identity Server
