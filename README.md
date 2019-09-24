@@ -4,9 +4,14 @@ Simple [Angular](https://angular.io/) single-page application demonstrating [OAu
 
 This version is tested with **WSO2 Identity Server 5.8.0**.
 
-The project is heavily inspired by the article [OpenID Connect with Angular 8](https://christianlydemann.com/openid-connect-with-angular-8-oidc-part-7/).
-
 ## Getting started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+- [WSO2 Identity Server 5.8.0 oh higher](https://wso2.com/identity-and-access-management/)
+- [npm](https://www.npmjs.com/get-npm)
+
+### Installing
 The project is a standard Angular CLI application. If you open a command prompt in that directory, you can run any ng command (e.g., ng test), or use npm to install extra packages into it.
 
 - Prepare WSO2 Identity Server
@@ -25,4 +30,18 @@ The project is a standard Angular CLI application. If you open a command prompt 
 - Run `ng serve` to startup a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 - If you encounter a CORS issue apply solution #2 reported at https://docs.wso2.com/display/IS580/Invoking+an+Endpoint+from+a+Different+Domain
 
+## TODO
+- **Auto-login**: the user is automatically redirected to the login page on the STS server. The article [AUTO REDIRECT TO AN STS SERVER IN AN ANGULAR APP USING OIDC IMPLICIT FLOW](https://damienbod.com/2017/09/26/auto-redirect-to-an-sts-server-in-an-angular-app-using-oidc-implicit-flow/)
+is a good starting point but needs a certain amount of changes because
+  - it uses an old version of the angular-auth-oidc-client library
+  - it works for implicit flow and needs some adjustments for code flow
+- **Route guards**: see https://github.com/damienbod/angular-auth-oidc-client#using-guards
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgments
+
+* The Angular application uses the [OIDC lib angular-auth-oidc-client](https://github.com/damienbod/angular-auth-oidc-client) that is  certified by OpenID Foundation
+* The project is heavily inspired by the article [OpenID Connect with Angular 8](https://christianlydemann.com/openid-connect-with-angular-8-oidc-part-7/).
