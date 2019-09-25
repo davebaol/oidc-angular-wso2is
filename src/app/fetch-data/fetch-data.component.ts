@@ -11,7 +11,7 @@ export class FetchDataComponent {
 
   constructor(private authService: AuthService, http: HttpClient, @Inject('API_URL') apiUrl: string) {
 
-    this.authService.get(apiUrl + '/api/SampleData/WeatherForecasts').subscribe(result => {
+    this.authService.httpGet(apiUrl + '/api/SampleData/WeatherForecasts').subscribe(result => {
       this.forecasts = result as WeatherForecast[];
     }, (error) => {
       console.error(error);

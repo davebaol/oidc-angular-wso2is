@@ -114,7 +114,7 @@ export class AuthService implements OnDestroy {
         this.oidcSecurityService.logoff();
     }
 
-    get(url: string): Observable<any> {
+    httpGet(url: string): Observable<any> {
         return this.http.get(url, { headers: this.getHeaders() })
         .pipe(catchError((error) => {
             this.oidcSecurityService.handleError(error);
@@ -122,7 +122,7 @@ export class AuthService implements OnDestroy {
         }));
     }
 
-    put(url: string, data: any): Observable<any> {
+    httpPut(url: string, data: any): Observable<any> {
         const body = JSON.stringify(data);
         return this.http.put(url, body, { headers: this.getHeaders() })
         .pipe(catchError((error) => {
@@ -131,7 +131,7 @@ export class AuthService implements OnDestroy {
         }));
     }
 
-    delete(url: string): Observable<any> {
+    httpDelete(url: string): Observable<any> {
         return this.http.delete(url, { headers: this.getHeaders() })
         .pipe(catchError((error) => {
             this.oidcSecurityService.handleError(error);
@@ -139,7 +139,7 @@ export class AuthService implements OnDestroy {
         }));
     }
 
-    post(url: string, data: any): Observable<any> {
+    httpPost(url: string, data: any): Observable<any> {
         const body = JSON.stringify(data);
         return this.http.post(url, body, { headers: this.getHeaders() })
         .pipe(catchError((error) => {
