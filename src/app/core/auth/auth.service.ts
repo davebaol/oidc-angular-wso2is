@@ -96,8 +96,11 @@ export class AuthService implements OnDestroy {
     }
 
     private doCallbackLogicIfRequired() {
-
         this.oidcSecurityService.authorizedCallbackWithCode(window.location.toString());
+    }
+
+    getUserData(): Observable<any> {
+        return this.oidcSecurityService.getUserData();
     }
 
     getIsAuthorized(): Observable<boolean> {
