@@ -15,7 +15,7 @@ export class HomeComponent {
    *
    */
   constructor(private authService: AuthService) {
-    this.userDataSubscription = this.authService.getUserData().subscribe((userData: any) => {
+    this.userDataSubscription = this.authService.getUserDataObservable().subscribe((userData: any) => {
       this.userData = userData;
     });
   }

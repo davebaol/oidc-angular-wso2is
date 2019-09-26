@@ -16,7 +16,7 @@ export class NavMenuComponent {
    *
    */
   constructor(private authService: AuthService) {
-    this.isAuthorizedSubscription = this.authService.getIsAuthorized().subscribe(
+    this.isAuthorizedSubscription = this.authService.getIsAuthorizedObservable().subscribe(
       (isAuthorized: boolean) => {
         this.isAuthorized = isAuthorized;
       });

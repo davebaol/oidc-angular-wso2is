@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class AuthService implements OnDestroy {
 
     isAuthorized = false;
+    autoLogin = false;
 
     constructor(
         private oidcSecurityService: OidcSecurityService,
@@ -34,7 +35,7 @@ export class AuthService implements OnDestroy {
             client_id: 'n1ktw0Y3rAXtKQk0MC2UR1Otp9Ma',
             response_type: 'code',
             scope: 'openid profile resourceApi',
-            post_logout_redirect_uri: this.originUrl,
+            post_logout_redirect_uri: `${this.originUrl}callback`,
             post_login_route: '/home',
             forbidden_route: '/forbidden',
             unauthorized_route: '/unauthorized',
@@ -63,25 +64,30 @@ export class AuthService implements OnDestroy {
         this.oidcSecurityService.setupModule(openIdConfiguration, authWellKnownEndpoints);
 
         if (this.oidcSecurityService.moduleSetup) {
-            this.doCallbackLogicIfRequired();
+            this.onOidcModuleSetup();
         } else {
             this.oidcSecurityService.onModuleSetup.subscribe(() => {
-                this.doCallbackLogicIfRequired();
+                this.onOidcModuleSetup();
             });
         }
         this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized().subscribe((isAuthorized => {
+            console.log("AuthService:isAuthorized = " + isAuthorized);
             this.isAuthorized = isAuthorized;
         }));
 
         this.oidcSecurityService.onAuthorizationResult.subscribe(
             (authorizationResult: AuthorizationResult) => {
-                this.onAuthorizationResultComplete(authorizationResult);
+                if (this.autoLogin) {
+                    this.onAuthorizationResultCompleteWithAutoLogin(authorizationResult);
+                } else {
+                    this.onAuthorizationResultComplete(authorizationResult);
+                }
             });
     }
 
     private onAuthorizationResultComplete(authorizationResult: AuthorizationResult) {
 
-        console.log('Auth result received AuthorizationState:'
+        console.log('onAuthorizationResultComplete: Auth result received AuthorizationState:'
             + authorizationResult.authorizationState
             + ' validationResult:' + authorizationResult.validationResult);
 
@@ -95,24 +101,74 @@ export class AuthService implements OnDestroy {
         }
     }
 
+    private onAuthorizationResultCompleteWithAutoLogin(authorizationResult: AuthorizationResult) {
+
+        console.log('onAuthorizationResultCompleteWithAutologin: Auth result received AuthorizationState:'
+            + authorizationResult.authorizationState
+            + ' validationResult:' + authorizationResult.validationResult);
+
+        if (authorizationResult.authorizationState === AuthorizationState.authorized) {
+            const path = this.readFromLocalStorage('redirect');
+            this.router.navigate([path]);
+        } else {
+            this.router.navigate(['/unauthorized']);
+        }
+    }
+
     private doCallbackLogicIfRequired() {
+        // Will do a callback, if the url has a code and state parameter.
         this.oidcSecurityService.authorizedCallbackWithCode(window.location.toString());
     }
 
-    getUserData(): Observable<any> {
+    private isAuthorizedCallbackWithCode(url: string) {
+        const params = (new URL(url)).searchParams;
+        const code = params.get("code");
+        const state = params.get("state");
+        return !!code && !!state;
+    }
+
+    private onOidcModuleSetup() {
+        if (!this.autoLogin) {
+            this.doCallbackLogicIfRequired();
+        }
+        //else if (window.location.hash) { // only implicit grant returns the token in the hash; code grant uses query string
+        else if (this.isAuthorizedCallbackWithCode(window.location.toString())) {
+            this.doCallbackLogicIfRequired();
+        } else {
+            if ('/autologin' !== window.location.pathname) {
+                this.writeToLocalStorage('redirect', window.location.pathname);
+            }
+            console.log('AuthService:onModuleSetup');
+            this.oidcSecurityService.getIsAuthorized().subscribe((authorized: boolean) => {
+                if (!authorized) {
+                    this.router.navigate(['/autologin']);
+                }
+            });
+        }
+    }
+
+    getOnModuleSetupObservable(): Observable<boolean> {
+        return this.oidcSecurityService.onModuleSetup;
+    }
+
+    getUserDataObservable(): Observable<any> {
         return this.oidcSecurityService.getUserData();
     }
 
-    getIsAuthorized(): Observable<boolean> {
+    getIsAuthorizedObservable(): Observable<boolean> {
         return this.oidcSecurityService.getIsAuthorized();
     }
 
-    login() {
+    moduleSetupCompleted(): boolean {
+        return this.oidcSecurityService.moduleSetup;
+    }
+
+    login(): void {
         console.log('start login');
         this.oidcSecurityService.authorize();
     }
 
-    logout() {
+    logout(): void {
         console.log('start logoff');
         this.oidcSecurityService.logoff();
     }
@@ -169,5 +225,18 @@ export class AuthService implements OnDestroy {
 
         const tokenValue = 'Bearer ' + token;
         return headers.set('Authorization', tokenValue);
+    }
+
+    private readFromLocalStorage(key: string): any {
+        const data = localStorage.getItem(key);
+        if (data != null) {
+            return JSON.parse(data);
+        }
+
+        return;
+    }
+
+    private writeToLocalStorage(key: string, value: any): void {
+        localStorage.setItem(key, JSON.stringify(value));
     }
 }

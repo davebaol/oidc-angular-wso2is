@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
+import { AutoLoginComponent } from './auto-login/auto-login.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
@@ -17,6 +18,7 @@ import { CoreModule } from './core/core.module';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    AutoLoginComponent,
     CounterComponent,
     FetchDataComponent,
     UnauthorizedComponent
@@ -27,6 +29,7 @@ import { CoreModule } from './core/core.module';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'autologin', component: AutoLoginComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'unauthorized', component: UnauthorizedComponent },
