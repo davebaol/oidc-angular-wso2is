@@ -8,8 +8,10 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthService implements OnDestroy {
 
+    // Set this property to true to enable the auto-login feature
+    readonly autoLogin = false;
+
     isAuthorized = false;
-    autoLogin = false;
 
     constructor(
         private oidcSecurityService: OidcSecurityService,
@@ -71,7 +73,6 @@ export class AuthService implements OnDestroy {
             });
         }
         this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized().subscribe((isAuthorized => {
-            console.log("AuthService:isAuthorized = " + isAuthorized);
             this.isAuthorized = isAuthorized;
         }));
 
