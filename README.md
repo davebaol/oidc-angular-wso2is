@@ -4,9 +4,9 @@ Simple [Angular](https://angular.io/) single-page application demonstrating [OAu
 
 This version is tested with **WSO2 Identity Server 5.8.0**.
 
-## Additonal features
+## Additional features
 The project supports a few additional features that can help you with authentication in your Angular apps:
-- **Route guards**: Angular’s route guards are interfaces which can tell the router whether or not it should allow navigation to a requested route. 
+- **Route guards**: Angular's route guards are interfaces which can tell the router whether or not it should allow navigation to a requested route. 
 - **Auto-login**: When this optional feature is enabled (see [Installing](#installing)) the user is automatically redirected to the login page on the STS server.
 
 ## Getting started
