@@ -21,13 +21,13 @@ The project is a standard Angular CLI application. If you open a command prompt 
 
 - Prepare WSO2 Identity Server
   - Sign in to the WSO2 Identity Server Management Console.
-  - On the `Main` tab, click `Identity` > `Service Providers` > `Add`. Enter the Service Provider Name and optionally provide a brief description. Click `Register`.
-  - Expand the `Inbound Authentication Configuration` section and then expand `OAuth/OpenID Connect Configuration`. Click `Configure`.
+  - On the `Main` tab, click `Identity` > `Service Providers` > `Add`. Enter the Service Provider Name and optionally provide a brief description. Click <kbd>Register</kbd>.
+  - Expand the `Inbound Authentication Configuration` section and then expand `OAuth/OpenID Connect Configuration`. Click <kbd>Configure</kbd>.
     - For the `Allowed Grant Types` enable `code` only.
     - Set the `Callback Url`, which is the exact location in the service provider's application where an access token would be sent. Since our single-page application has 2 callback URLs you have to use a regex pattern like `regexp=(http://localhost:4200/callback|http://localhost:4200/silent_renew.html)`. Notice that you must have the prefix `regexp=` before your regex pattern.
     - Flag the `PKCE Mandatory` checkbox.
     - Flag the `Allow authentication without the client secret` checkbox.
-    - Click `Add`. Note that client key and client secret get generated.
+    - Click <kbd>Add</kbd>. Note that client key and client secret get generated.
   - Expand the `Claim Configuration` section to specify information of the user that the application needs form the Identity Server where the service provider authenticates. Refer to [Configuring Claims for a Service Provider](https://docs.wso2.com/display/IS580/Configuring+Claims+for+a+Service+Provider).  
 - Prepare sources according to your configuration 
   - In `src/main.ts` properly set `BASE_URL`, `AUTH_URL` and `API_URL`. If needed, you can change the base url in the tag `<base href="/">` of the file `src/index.html` with something like `<base href="/my/context">`.
