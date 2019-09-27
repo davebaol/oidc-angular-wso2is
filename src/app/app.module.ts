@@ -12,6 +12,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { CoreModule } from './core/core.module';
+import { AuthGuardService } from './core/auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -31,14 +32,14 @@ import { CoreModule } from './core/core.module';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'autologin', component: AutoLoginComponent },
       { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuardService] },
       { path: 'unauthorized', component: UnauthorizedComponent },
       { path: 'forbidden', component: UnauthorizedComponent },
       { path: '**', redirectTo: '' }
     ]),
     CoreModule
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

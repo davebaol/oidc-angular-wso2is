@@ -4,6 +4,11 @@ Simple [Angular](https://angular.io/) single-page application demonstrating [OAu
 
 This version is tested with **WSO2 Identity Server 5.8.0**.
 
+## Additonal features
+The project supports a few additional features that can help you with authentication in your Angular apps:
+- **Route guards**: Angular’s route guards are interfaces which can tell the router whether or not it should allow navigation to a requested route. 
+- **Auto-login**: When this optional feature is enabled (see [Installing](#installing)) the user is automatically redirected to the login page on the STS server.
+
 ## Getting started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
@@ -33,9 +38,6 @@ The project is a standard Angular CLI application. If you open a command prompt 
 - Run `ng serve` to startup a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 - If you encounter a CORS issue apply solution #2 reported at https://docs.wso2.com/display/IS580/Invoking+an+Endpoint+from+a+Different+Domain
 
-## TODO
-- **Route guards**: see https://github.com/damienbod/angular-auth-oidc-client#using-guards
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
@@ -44,4 +46,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * The Angular application uses the [OIDC lib angular-auth-oidc-client](https://github.com/damienbod/angular-auth-oidc-client) that is  certified by OpenID Foundation.
 * The project is heavily inspired by the article [OpenID Connect with Angular 8](https://christianlydemann.com/openid-connect-with-angular-8-oidc-part-7/).
-* The auto-login feature, automatically redirecting the user to the login page on the STS server, is inspired by the article [AUTO REDIRECT TO AN STS SERVER IN AN ANGULAR APP USING OIDC IMPLICIT FLOW](https://damienbod.com/2017/09/26/auto-redirect-to-an-sts-server-in-an-angular-app-using-oidc-implicit-flow/) with appropriate adjustments  for code flow.
+* Route guards are implemented as specified by the official documentation of the angular-auth-oidc-client library; see https://github.com/damienbod/angular-auth-oidc-client#using-guards
+* Auto-login implementation is inspired by the article [AUTO REDIRECT TO AN STS SERVER IN AN ANGULAR APP USING OIDC IMPLICIT FLOW](https://damienbod.com/2017/09/26/auto-redirect-to-an-sts-server-in-an-angular-app-using-oidc-implicit-flow/) with appropriate adjustments for code flow.
