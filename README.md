@@ -23,10 +23,10 @@ The project is a standard Angular CLI application. If you open a command prompt 
   - Sign in to the WSO2 Identity Server Management Console.
   - On the `Main` tab, click `Identity` > `Service Providers` > `Add`. Enter the Service Provider Name and optionally provide a brief description. Click <kbd>Register</kbd>.
   - Expand the `Inbound Authentication Configuration` section and then expand `OAuth/OpenID Connect Configuration`. Click <kbd>Configure</kbd>.
-    - For the `Allowed Grant Types` enable `code` only.
+    - For the `Allowed Grant Types` enable `Code`. Notice that for security reasons, especially for your production environment, this should be the only allowed grant type apart from the optional `Refresh Token` grant type.
     - Set the `Callback Url`, which is the exact location in the service provider's application where an access token would be sent. Since our single-page application has 2 callback URLs you have to use a regex pattern like `regexp=(http://localhost:4200/callback|http://localhost:4200/silent_renew.html)`. Notice that you must have the prefix `regexp=` before your regex pattern.
-    - Flag the `PKCE Mandatory` checkbox.
-    - Flag the `Allow authentication without the client secret` checkbox.
+    - Flag the `PKCE Mandatory` checkbox in order to reject pure authorization code grant.
+    - Flag the `Allow authentication without the client secret` checkbox since single-page applications cannot guarantee the confidentiality of the client secret. 
     - Click <kbd>Add</kbd>. Note that client key and client secret get generated.
   - Expand the `Claim Configuration` section to specify information of the user that the application needs form the Identity Server where the service provider authenticates. Refer to [Configuring Claims for a Service Provider](https://docs.wso2.com/display/IS580/Configuring+Claims+for+a+Service+Provider).  
 - Prepare sources according to your configuration 
