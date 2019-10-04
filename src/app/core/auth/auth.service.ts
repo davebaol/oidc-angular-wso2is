@@ -11,6 +11,9 @@ export class AuthService implements OnDestroy {
     // Set this property to true to enable the auto-login feature
     readonly autoLogin = false;
 
+    // Set this property to true to revoke access and refresh tokens on logout
+    readonly revokeTokenlOnLogout = true;
+
     isAuthorized = false;
 
     constructor(
@@ -39,8 +42,8 @@ export class AuthService implements OnDestroy {
             scope: 'openid profile resourceApi',
             post_logout_redirect_uri: `${this.originUrl}callback`,
             post_login_route: '/home',
-            forbidden_route: '/forbidden',
-            unauthorized_route: '/unauthorized',
+            forbidden_route: '/forbidden', // HTTP 403
+            unauthorized_route: '/unauthorized', // HTTP 401
             use_refresh_token: false, // to refresh token silent_renew must be true too
             silent_renew: true,
             silent_renew_url: `${this.originUrl}silent_renew.html`,
@@ -172,7 +175,36 @@ export class AuthService implements OnDestroy {
 
     logout(): void {
         console.log('start logoff');
-        this.oidcSecurityService.logoff();
+
+        if (this.revokeTokenlOnLogout) {
+            const token = this.oidcSecurityService.getToken();
+            const refreshToken = this.oidcSecurityService.getRefreshToken();
+            this.oidcSecurityService.logoff(
+                // Revoking the access token first makes WSO2 IS 5.8.0 automatically revoke the associated
+                // refresh token (see response headers of access token revocation). It looks very reasonable.
+                // This makes the second request pretty much useless, but you know... better too much than too little :)
+                url => this.revokeToken(token,  refreshToken ? () =>this.revokeToken(refreshToken) : undefined)
+            );
+        }
+        else {
+            this.oidcSecurityService.logoff();
+        }
+    }
+
+    private revokeToken(token: string, callback?: () => void) {
+        console.log('Revoking token = ' + token);
+        const revokeUrl = `${this.authUrl}/oauth2/revoke`;
+        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('token', token);
+        urlSearchParams.append('client_id', 'n1ktw0Y3rAXtKQk0MC2UR1Otp9Ma');
+        this.http.post(revokeUrl, urlSearchParams.toString(), { headers })
+            .subscribe(result => {
+                if (callback) { callback(); }
+              }, (error) => {
+                console.error(error);
+                if (callback) { callback(); }
+              });
     }
 
     httpGet(url: string): Observable<any> {
