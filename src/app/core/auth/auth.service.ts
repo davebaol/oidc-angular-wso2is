@@ -41,6 +41,7 @@ export class AuthService implements OnDestroy {
             post_login_route: '/home',
             forbidden_route: '/forbidden',
             unauthorized_route: '/unauthorized',
+            use_refresh_token: false, // to refresh token silent_renew must be true too
             silent_renew: true,
             silent_renew_url: `${this.originUrl}silent_renew.html`,
             history_cleanup_off: true,
