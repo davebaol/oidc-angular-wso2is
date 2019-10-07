@@ -16,6 +16,9 @@ export class AuthService implements OnDestroy {
 
     isAuthorized = false;
 
+    openIdConfiguration: OpenIdConfiguration;
+    authWellKnownEndpoints: AuthWellKnownEndpoints;
+
     constructor(
         private oidcSecurityService: OidcSecurityService,
         private http: HttpClient,
@@ -34,7 +37,7 @@ export class AuthService implements OnDestroy {
     }
 
     public initAuth() {
-        const openIdConfiguration: OpenIdConfiguration = {
+        this.openIdConfiguration = {
             stsServer: `${this.authUrl}/oauth2/oidcdiscovery`,
             redirect_url: `${this.originUrl}callback`,
             client_id: 'n1ktw0Y3rAXtKQk0MC2UR1Otp9Ma',
@@ -55,7 +58,7 @@ export class AuthService implements OnDestroy {
             max_id_token_iat_offset_allowed_in_seconds: 10,
         };
 
-        const authWellKnownEndpoints: AuthWellKnownEndpoints = {
+        this.authWellKnownEndpoints = {
             issuer: `${this.authUrl}/oauth2/token`,
             jwks_uri: `${this.authUrl}/oauth2/jwks`,
             authorization_endpoint: `${this.authUrl}/oauth2/authorize`,
@@ -67,7 +70,7 @@ export class AuthService implements OnDestroy {
             introspection_endpoint: `${this.authUrl}/oauth2/introspect`,
         };
 
-        this.oidcSecurityService.setupModule(openIdConfiguration, authWellKnownEndpoints);
+        this.oidcSecurityService.setupModule(this.openIdConfiguration, this.authWellKnownEndpoints);
 
         if (this.oidcSecurityService.moduleSetup) {
             this.onOidcModuleSetup();
@@ -193,12 +196,12 @@ export class AuthService implements OnDestroy {
 
     private revokeToken(token: string, callback?: () => void) {
         console.log('Revoking token = ' + token);
-        const revokeUrl = `${this.authUrl}/oauth2/revoke`;
         const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
         let urlSearchParams = new URLSearchParams();
         urlSearchParams.append('token', token);
-        urlSearchParams.append('client_id', 'n1ktw0Y3rAXtKQk0MC2UR1Otp9Ma');
-        this.http.post(revokeUrl, urlSearchParams.toString(), { headers })
+        //urlSearchParams.append('token_type_hint', 'access_token');
+        urlSearchParams.append('client_id', this.openIdConfiguration.client_id);
+        this.http.post(this.authWellKnownEndpoints.revocation_endpoint, urlSearchParams.toString(), { headers })
             .subscribe(result => {
                 if (callback) { callback(); }
               }, (error) => {
