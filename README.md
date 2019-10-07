@@ -7,6 +7,7 @@ This version is tested with **WSO2 Identity Server 5.8.0**.
 ## Additional features
 The project supports a few additional features that can help you with authentication in your Angular apps:
 - **Route guards**: Angular's route guards are interfaces which can tell the router whether or not it should allow navigation to a requested route. 
+- **Token revocation on logout**: When this optional feature is enabled (see [Installing](#installing)) the access token and its refresh token (if present) are revoked when the user logs out.
 - **Auto-login**: When this optional feature is enabled (see [Installing](#installing)) the user is automatically redirected to the login page on the STS server.
 
 ## Getting started
@@ -33,6 +34,7 @@ The project is a standard Angular CLI application. If you open a command prompt 
   - In `src/main.ts` properly set `BASE_URL`, `AUTH_URL` and `API_URL`. If needed, you can change the base url in the tag `<base href="/">` of the file `src/index.html` with something like `<base href="/my/context">`.
   - In `src/app/core/auth/auth.service.ts`:
     - Properly set `openIdConfiguration` properties. Especially, you have to set property `client_id` to the value of the `OAuth client key` previously generated for the service provider in WSO2 IS.
+    - Set the `revokeTokenlOnLogout` variable according to your needs. When `revokeTokenlOnLogout` is `true` the access token and its refresh token (if present) are revoked when the user logs out.
     - Set the `autoLogin` variable according to your needs. When `autoLogin` is `true` the user is automatically redirected to the login page on the STS server.
 - Run `npm install` to install dependencies.
 - Run `ng serve` to startup a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

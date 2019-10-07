@@ -181,33 +181,31 @@ export class AuthService implements OnDestroy {
 
         if (this.revokeTokenlOnLogout) {
             const token = this.oidcSecurityService.getToken();
-            const refreshToken = this.oidcSecurityService.getRefreshToken();
-            this.oidcSecurityService.logoff(
-                // Revoking the access token first makes WSO2 IS 5.8.0 automatically revoke the associated
-                // refresh token (see response headers of access token revocation). It looks very reasonable.
-                // This makes the second request pretty much useless, but you know... better too much than too little :)
-                url => this.revokeToken(token,  refreshToken ? () =>this.revokeToken(refreshToken) : undefined)
-            );
+            this.oidcSecurityService.logoff(url => this.revokeToken(token));
         }
         else {
             this.oidcSecurityService.logoff();
         }
     }
 
-    private revokeToken(token: string, callback?: () => void) {
+    // Revoke access token
+    // Notice that WSO2 IS 5.8.0 automatically revokes the associated refresh token
+    // (check response headers of access token revocation) which looks very reasonable.
+    private revokeToken(token: string) {
         console.log('Revoking token = ' + token);
         const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
         let urlSearchParams = new URLSearchParams();
         urlSearchParams.append('token', token);
-        //urlSearchParams.append('token_type_hint', 'access_token');
+        urlSearchParams.append('token_type_hint', 'access_token');
         urlSearchParams.append('client_id', this.openIdConfiguration.client_id);
         this.http.post(this.authWellKnownEndpoints.revocation_endpoint, urlSearchParams.toString(), { headers })
             .subscribe(result => {
-                if (callback) { callback(); }
-              }, (error) => {
-                console.error(error);
-                if (callback) { callback(); }
-              });
+                console.log('Access token and related refresh token (if any) have been successfully revoked');
+            }, (error) => {
+                console.error('Something went wrong on token revocation');
+                this.oidcSecurityService.handleError(error);
+                return throwError(error);
+            });
     }
 
     httpGet(url: string): Observable<any> {
