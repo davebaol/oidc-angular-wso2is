@@ -12,7 +12,7 @@ export class AuthService implements OnDestroy {
     readonly autoLogin = false;
 
     // Set this property to true to revoke access and refresh tokens on logout
-    readonly revokeTokenlOnLogout = true;
+    readonly revokeTokenOnLogout = true;
 
     isAuthorized = false;
 
@@ -179,7 +179,7 @@ export class AuthService implements OnDestroy {
     logout(): void {
         console.log('start logoff');
 
-        if (this.revokeTokenlOnLogout) {
+        if (this.revokeTokenOnLogout) {
             const token = this.oidcSecurityService.getToken();
             this.oidcSecurityService.logoff(url => this.revokeToken(token));
         }
