@@ -14,7 +14,7 @@ The project supports a few additional features that can help you with authentica
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
-- [WSO2 Identity Server 5.8.0 oh higher](https://wso2.com/identity-and-access-management/)
+- [WSO2 Identity Server 5.8.0 or higher](https://wso2.com/identity-and-access-management/)
 - [npm](https://www.npmjs.com/get-npm)
 
 ### Installing
