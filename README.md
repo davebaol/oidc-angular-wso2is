@@ -7,8 +7,8 @@ This version is tested with **WSO2 Identity Server 5.8.0**.
 ## Additional features
 The project supports a few additional features that can help you with authentication in your Angular apps:
 - **Route guards**: Angular's route guards are interfaces which can tell the router whether or not it should allow navigation to a requested route. 
-- **Token revocation on logout**: When this feature is enabled (see [Preparing sources](#:two:-preparing-sources)) the access token and its refresh token (if present) are revoked when the user logs out.
-- **Auto-login**: When this feature is enabled (see [Preparing sources](#:two:-preparing-sources)) the user is automatically redirected to the login page on the STS server.
+- **Token revocation on logout**: When this feature is enabled (see [Preparing sources](#two-preparing-sources)) the access token and its refresh token (if present) are revoked when the user logs out.
+- **Auto-login**: When this feature is enabled (see [Preparing sources](#two-preparing-sources)) the user is automatically redirected to the login page on the STS server.
 
 ## Getting started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
