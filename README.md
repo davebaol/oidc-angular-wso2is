@@ -7,8 +7,8 @@ This version is tested with **WSO2 Identity Server 5.8.0**.
 ## Additional features
 The project supports a few additional features that can help you with authentication in your Angular apps:
 - **Route guards**: Angular's route guards are interfaces which can tell the router whether or not it should allow navigation to a requested route. 
-- **Token revocation on logout**: When this optional feature is enabled (see [Installing](#installing)) the access token and its refresh token (if present) are revoked when the user logs out.
-- **Auto-login**: When this optional feature is enabled (see [Installing](#installing)) the user is automatically redirected to the login page on the STS server.
+- **Token revocation on logout**: When this feature is enabled (see [Preparing sources](#:two:-preparing-sources)) the access token and its refresh token (if present) are revoked when the user logs out.
+- **Auto-login**: When this feature is enabled (see [Preparing sources](#:two:-preparing-sources)) the user is automatically redirected to the login page on the STS server.
 
 ## Getting started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -37,7 +37,7 @@ The project is a standard Angular CLI application. If you open a command prompt 
   - Properly set `openIdConfiguration` properties:
     - Set property `client_id` to the value of the `OAuth client key` previously generated for the service provider in WSO2 IS.
     - Set property `silent_renew` to `true` to renew the client tokens, once the token_id expires
-    - Set property `use_refresh_token` to `true` to use refresh token grant during silent renew (which in turn must be enabled). Also make sure `Refresh Token` grant type is checked for the service provider previousluy defined in WSO2 IS.
+    - Set property `use_refresh_token` to `true` to use refresh token grant during silent renew (which in turn must be enabled). Also make sure `Refresh Token` grant type is checked for the service provider previously defined in WSO2 IS.
   - Set the `revokeTokenOnLogout` variable according to your needs. When `revokeTokenOnLogout` is `true` the access token and its refresh token (if present) are revoked when the user logs out.
   - Set the `autoLogin` variable according to your needs. When `autoLogin` is `true` the user is automatically redirected to the login page on the STS server.
 - Run `npm install` to install dependencies.
