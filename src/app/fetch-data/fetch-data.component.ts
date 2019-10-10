@@ -7,21 +7,14 @@ import { AuthService } from 'src/app/core/auth/auth.service';
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+  public data: any;
 
   constructor(private authService: AuthService, http: HttpClient, @Inject('API_URL') apiUrl: string) {
 
-    this.authService.httpGet(apiUrl + '/api/SampleData/WeatherForecasts').subscribe(result => {
-      this.forecasts = result as WeatherForecast[];
+    this.authService.httpGet(apiUrl + '/api/oraesatta/v1/ora').subscribe(result => {
+      this.data = result;
     }, (error) => {
       console.error(error);
     });
   }
-}
-
-interface WeatherForecast {
-  dateFormatted: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
 }
