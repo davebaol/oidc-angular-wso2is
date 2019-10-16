@@ -171,6 +171,10 @@ export class AuthService implements OnDestroy {
         return this.oidcSecurityService.moduleSetup;
     }
 
+    handleError(error: any): void {
+        this.oidcSecurityService.handleError(error);
+    }
+
     login(): void {
         console.log('start login');
         this.oidcSecurityService.authorize();
@@ -208,58 +212,8 @@ export class AuthService implements OnDestroy {
             });
     }
 
-    httpGet(url: string): Observable<any> {
-        return this.http.get(url, { headers: this.getHeaders() })
-        .pipe(catchError((error) => {
-            this.oidcSecurityService.handleError(error);
-            return throwError(error);
-        }));
-    }
-
-    httpPut(url: string, data: any): Observable<any> {
-        const body = JSON.stringify(data);
-        return this.http.put(url, body, { headers: this.getHeaders() })
-        .pipe(catchError((error) => {
-            this.oidcSecurityService.handleError(error);
-            return throwError(error);
-        }));
-    }
-
-    httpDelete(url: string): Observable<any> {
-        return this.http.delete(url, { headers: this.getHeaders() })
-        .pipe(catchError((error) => {
-            this.oidcSecurityService.handleError(error);
-            return throwError(error);
-        }));
-    }
-
-    httpPost(url: string, data: any): Observable<any> {
-        const body = JSON.stringify(data);
-        return this.http.post(url, body, { headers: this.getHeaders() })
-        .pipe(catchError((error) => {
-            this.oidcSecurityService.handleError(error);
-            return throwError(error);
-        }));
-    }
-
-    private getHeaders() {
-        let headers = new HttpHeaders();
-        headers = headers.set('Content-Type', 'application/json');
-        return this.appendAuthHeader(headers);
-    }
-
-    public getToken() {
-        const token = this.oidcSecurityService.getToken();
-        return token;
-    }
-
-    private appendAuthHeader(headers: HttpHeaders) {
-        const token = this.oidcSecurityService.getToken();
-
-        if (token === '') { return headers; }
-
-        const tokenValue = 'Bearer ' + token;
-        return headers.set('Authorization', tokenValue);
+    public getToken(): string {
+        return this.oidcSecurityService.getToken();
     }
 
     private readFromLocalStorage(key: string): any {

@@ -6,9 +6,10 @@ This version is tested with **WSO2 Identity Server 5.8.0**.
 
 ## Additional features
 The project supports a few additional features that can help you with authentication in your Angular apps:
-- **Route guards**: Angular's route guards are interfaces which can tell the router whether or not it should allow navigation to a requested route. 
+- **API call interceptor**: By intercepting calls to the API's the access token is silently attached to request headers.
 - **Token revocation on logout**: When this feature is enabled (see [Preparing sources](#two-preparing-sources)) the access token and its refresh token (if present) are revoked when the user logs out.
 - **Auto-login**: When this feature is enabled (see [Preparing sources](#two-preparing-sources)) the user is automatically redirected to the login page on the STS server.
+- **Route guards**: Angular's route guards are interfaces which can tell the router whether or not it should allow navigation to a requested route. 
 
 ## Getting started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -52,5 +53,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * The Angular application uses the [OIDC lib angular-auth-oidc-client](https://github.com/damienbod/angular-auth-oidc-client) that is  certified by OpenID Foundation.
 * The project is heavily inspired by the article [OpenID Connect with Angular 8](https://christianlydemann.com/openid-connect-with-angular-8-oidc-part-7/).
+* The API call interceptor is inspired by the article [Angular Authentication: Using the Http Client and Http Interceptors](https://medium.com/@ryanchenkie_40935/angular-authentication-using-the-http-client-and-http-interceptors-2f9d1540eb8)
 * Route guards are implemented as specified by the official documentation of the angular-auth-oidc-client library; see https://github.com/damienbod/angular-auth-oidc-client#using-guards
 * Auto-login implementation is inspired by the article [AUTO REDIRECT TO AN STS SERVER IN AN ANGULAR APP USING OIDC IMPLICIT FLOW](https://damienbod.com/2017/09/26/auto-redirect-to-an-sts-server-in-an-angular-app-using-oidc-implicit-flow/) with appropriate adjustments for code flow.
