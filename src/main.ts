@@ -15,7 +15,7 @@ export function getBaseUrl() {
 const providers = [
   { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
   { provide: 'AUTH_URL', useValue: 'https://localhost:9443' },
-  { provide: 'API_URL', useValue: 'https://localhost:44340' }
+  { provide: 'API_URL', useValue: 'https://localhost:9443/api' }
 ];
 
 platformBrowserDynamic(providers).bootstrapModule(AppModule)

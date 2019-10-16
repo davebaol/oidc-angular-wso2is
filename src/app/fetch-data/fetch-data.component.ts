@@ -9,7 +9,7 @@ export class FetchDataComponent {
   public data: any;
 
   constructor(http: HttpClient) {
-    http.get('$API_URL$/api/oraesatta/v1/ora')
+    http.get('$API_URL$/oraesatta/v1/ora')
       .subscribe(
         result => { this.data = result; },
         error => { console.error(error); }
