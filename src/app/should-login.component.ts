@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthService } from './core/auth.service';
 
 @Component({
   selector: 'app-should-login',
@@ -7,10 +7,10 @@ import { OAuthService } from 'angular-oauth2-oidc';
     <p>Please <a href="#" (click)="login($event)">log in</a> before continuing.</p>`,
 })
 export class ShouldLoginComponent {
-  constructor(private authService: OAuthService) { }
+  constructor(private authService: AuthService) { }
 
   public login($event) {
     $event.preventDefault();
-    this.authService.initImplicitFlow();
+    this.authService.login();
   }
 }
