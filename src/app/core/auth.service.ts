@@ -14,6 +14,9 @@ export class AuthService {
   // Set this to true to revoke access and refresh tokens on logout
   private readonly revokeTokenOnLogout = true;
 
+  // Set this to '' if you don't have to logout from Shibboleth
+  private readonly shibbolethLogoutUrl = 'https://tst-apim-a2c-2.ecosis.csi.it/tst_liv1_spid_GASP_REGIONE/Shibboleth.sso/Logout?logout=SERVICE_PROVIDER_TST_APIM-A2C-2_ECOSIS.CSI.IT_LIV1_GASP_REGIONE';
+
   private isAuthenticatedSubject$ = new BehaviorSubject<boolean>(false);
   public isAuthenticated$ = this.isAuthenticatedSubject$.asObservable();
 
@@ -195,6 +198,17 @@ export class AuthService {
       const token = this.oauthService.getAccessToken(); // Get token before logging out which clears the token  
       this.revokeToken(token);
     }
+
+    if (this.shibbolethLogoutUrl) {
+      this.http.get(this.shibbolethLogoutUrl, {responseType: 'text'})
+      .subscribe(result => {
+          console.log('Shibboleth successfully logged out');
+      }, (error) => {
+          console.error('Something went wrong on Shibboleth logout');
+          return throwError(error);
+      });
+    }
+
     this.oauthService.logOut();
   }
 
