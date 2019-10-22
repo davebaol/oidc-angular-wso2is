@@ -70,6 +70,7 @@ The project is a standard Angular CLI application. If you open a command prompt 
 #### :two: Preparing sources
 - In `src/main.ts` properly set `BASE_URL`, `AUTH_URL` and `API_URL`. If needed, you can change the base url in the tag `<base href="/">` of the file `src/index.html` with something like `<base href="/my/context">`.
 - In `src/app/core/auth.config.ts`:
+  - Set property `issuer` to `https://localhost:9443/oauth2/oidcdiscovery`.
   - Set property `clientId` to the value of the `OAuth client key` previously generated for the service provider in WSO2 IS.
   - Set property `responseType` according to the authorization grant you have previously chosen for the service provider in WSO2 IS: `'code'` for code flow and `''` for implicit flow.
 - In `src/app/core/auth.service.ts`:

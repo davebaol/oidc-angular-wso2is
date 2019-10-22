@@ -1,5 +1,11 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
 
+// Returns the origin URL taking into account the base context specified by /index.html
+// and stripping out any trailing slash
+function originUrl() {
+  return document.getElementsByTagName('base')[0].href.replace(/\/$/, "");
+}
+
 export const authConfig: AuthConfig = {
   // Url of the Identity Provider
   issuer: 'https://localhost:9443/oauth2/oidcdiscovery',
@@ -8,9 +14,9 @@ export const authConfig: AuthConfig = {
   // The SPA's id. The SPA is registerd with this id at the auth-server
   clientId: 'iVilYq3pIWeG4xP6Xnbi09xut0ka',
 
-  redirectUri: `${window.location.origin}/index.html`,
-  silentRefreshRedirectUri: `${window.location.origin}/silent-refresh.html`,
-  postLogoutRedirectUri: `${window.location.origin}/index.html`,
+  redirectUri: `${originUrl()}/index.html`,
+  silentRefreshRedirectUri: `${originUrl()}/silent-refresh.html`,
+  postLogoutRedirectUri: `${originUrl()}/index.html`,
 
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
