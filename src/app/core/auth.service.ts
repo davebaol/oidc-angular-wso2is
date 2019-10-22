@@ -125,7 +125,7 @@ export class AuthService {
         return this.refresh()
           .then(() => Promise.resolve())
           .catch(result => {
-            if (this.checkUserInteractionRequired(result)) {
+            if (this.checkUserInteractionRequiredOnRefreshFailure(result)) {
 
               // 3. ASK FOR LOGIN:
               // At this point we know for sure that we have to ask the
@@ -162,26 +162,28 @@ export class AuthService {
       .catch(() => this.isDoneLoadingSubject$.next(true));
   }
 
-  private checkUserInteractionRequired(result: any): boolean {
-    // Subset of situations from https://openid.net/specs/openid-connect-core-1_0.html#AuthError
-    // Only the ones where it's reasonably sure that sending the
+  private checkUserInteractionRequiredOnRefreshFailure(result: any): boolean {
+    // Only consider situations where it's reasonably sure that sending the
     // user to the IdServer will help.
     const errorResponsesRequiringUserInteraction = [
-      'interaction_required',
+      // OAuth2 error codes
+      // See RFC https://tools.ietf.org/html/rfc6749#section-5.2
+      'invalid_grant',
+
+      // OIDC error codes
+      // See https://openid.net/specs/openid-connect-core-1_0.html#AuthError
+      'interaction_required',        
       'login_required',
       'account_selection_required',
-      'consent_required',
+      'consent_required'
     ];
-    if (this.oauthService.responseType === 'code') {
-      return result
-        && result.error
-        && (errorResponsesRequiringUserInteraction.indexOf(result.error.error) >= 0
-          || (result.error.error === 'invalid_grant' && !this.refreshToken)
-      );
-    }
+
+    // Notice that implicit and code flows return errors in different ways
+    const k = this.oauthService.responseType === 'code' ? 'error' : 'reason';
+
     return result
-      && result.reason
-      && errorResponsesRequiringUserInteraction.indexOf(result.reason.error) >= 0;
+        && result[k]
+        && errorResponsesRequiringUserInteraction.indexOf(result[k].error) >= 0;
   }
 
   public login(targetUrl?: string) {
