@@ -72,8 +72,6 @@ The project is a standard Angular CLI application. If you open a command prompt 
 - In `src/app/core/auth.config.ts`:
   - Set property `clientId` to the value of the `OAuth client key` previously generated for the service provider in WSO2 IS.
   - Set property `responseType` according to the authorization grant you have previously chosen for the service provider in WSO2 IS: `'code'` for code flow and `''` for implicit flow.
-    - Set property `silent_renew` to `true` to renew the client tokens, once the token_id expires
-    - Set property `use_refresh_token` to `true` to use refresh token grant during silent renew (which in turn must be enabled). Also make sure `Refresh Token` grant type is checked for the service provider previously defined in WSO2 IS.
 - In `src/app/core/auth.service.ts`:
   - Set the `revokeTokenOnLogout` variable according to your needs. When `revokeTokenOnLogout` is `true` the access token and its refresh token (if present) are revoked when the user logs out.
   - Set the `autoLogin` variable according to your needs. When `autoLogin` is `true` the user is automatically redirected to the login page on the STS server.
