@@ -29,6 +29,7 @@ import { ShouldLoginComponent } from './should-login.component';
       { path: '**', component: FallbackComponent },
     ])
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
