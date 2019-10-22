@@ -204,21 +204,6 @@ export class AuthService {
       : this.oauthService.silentRefresh();
   }
 
-  public refreshNEW(): Promise<object> {
-    if (this.oauthService.responseType === 'code') {
-      if (this.refreshToken) {
-        console.log('prima di this.oauthService.refreshToken()');
-        return this.oauthService.refreshToken();
-      }
-      console.log('throwing login_required');
-      //throw new Error('login_required');
-      return Promise.reject(new Error('login_required'));
-    }
-    else {
-      return this.oauthService.silentRefresh();
-    }
-  }
-
   public hasValidToken() { return this.oauthService.hasValidAccessToken(); }
 
   // These normally won't be exposed from a service like this, but
