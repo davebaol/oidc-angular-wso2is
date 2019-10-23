@@ -1,5 +1,9 @@
 # oidc-angular-wso2is
 
+> ⛔️ **DEPRECATED!!!**
+> 
+> This project is no longer supported, please consider using new project [sample-oidc-angular-wso2is](https://github.com/davebaol/sample-oidc-angular-wso2is) instead.
+
 Simple [Angular](https://angular.io/) single-page application demonstrating [OAuth2 code flow with PKCE](https://oauth.net/2/pkce/) using [WSO2 Identity Server](https://wso2.com/identity-and-access-management/).
 
 This version is tested with **WSO2 Identity Server 5.8.0**.
