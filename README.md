@@ -68,14 +68,15 @@ The project is a standard Angular CLI application. If you open a command prompt 
 - Expand the `Claim Configuration` section to specify information of the user that the application needs form the Identity Server where the service provider authenticates. Refer to [Configuring Claims for a Service Provider](https://docs.wso2.com/display/IS580/Configuring+Claims+for+a+Service+Provider).
 
 #### :two: Preparing sources
-- In `src/main.ts` properly set `BASE_URL`, `AUTH_URL` and `API_URL`. If needed, you can change the base url in the tag `<base href="/">` of the file `src/index.html` with something like `<base href="/my/context">`.
+- If you need to specify a context for your app just change the tag `<base href="/">` of the file `src/index.html` with something like `<base href="/my/context">`. 
+- In `src/app/core/config.service.ts` properly set the following properties:
+  - `authUrl`: the URL of your authorization server (WSO2 Identity Server in our case)
+  - `apiUrl`: the URL of your API server (WSO2 API Manager in our case)
+  - `revokeTokenOnLogout`: if `true` the access token and its refresh token (if present) are revoked when the user logs out.
+  - `autoLogin`: if `true` the user is automatically redirected to the login page on the STS server.
 - In `src/app/core/auth.config.ts`:
-  - Set property `issuer` to `https://localhost:9443/oauth2/oidcdiscovery`.
   - Set property `clientId` to the value of the `OAuth client key` previously generated for the service provider in WSO2 IS.
   - Set property `responseType` according to the authorization grant you have previously chosen for the service provider in WSO2 IS: `'code'` for code flow and `''` for implicit flow.
-- In `src/app/core/auth.service.ts`:
-  - Set the `revokeTokenOnLogout` variable according to your needs. When `revokeTokenOnLogout` is `true` the access token and its refresh token (if present) are revoked when the user logs out.
-  - Set the `autoLogin` variable according to your needs. When `autoLogin` is `true` the user is automatically redirected to the login page on the STS server.
 - Run `npm install` to install dependencies.
 - Run `ng serve` to startup a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 - If you encounter a CORS issue apply solution #2 reported at https://docs.wso2.com/display/IS580/Invoking+an+Endpoint+from+a+Different+Domain

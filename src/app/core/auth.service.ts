@@ -4,18 +4,10 @@ import { OAuthErrorEvent, OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject, throwError } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { ConfigService } from './config.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
-  // Set this to true to enable the auto-login feature
-  private readonly autoLogin = false;
-
-  // Set this to true to revoke access and refresh tokens on logout
-  private readonly revokeTokenOnLogout = true;
-
-  // Set this to '' if you don't have to logout from Shibboleth
-  private readonly shibbolethLogoutUrl = 'https://tst-apim-a2c-2.ecosis.csi.it/tst_liv1_spid_GASP_REGIONE/Shibboleth.sso/Logout?logout=SERVICE_PROVIDER_TST_APIM-A2C-2_ECOSIS.CSI.IT_LIV1_GASP_REGIONE';
 
   private isAuthenticatedSubject$ = new BehaviorSubject<boolean>(false);
   public isAuthenticated$ = this.isAuthenticatedSubject$.asObservable();
@@ -45,8 +37,9 @@ export class AuthService {
 
   constructor (
     private oauthService: OAuthService,
+    private configService: ConfigService,
     private http: HttpClient,
-    private router: Router,
+    private router: Router
   ) {
     // Useful for debugging:
     this.oauthService.events.subscribe(event => {
@@ -134,7 +127,7 @@ export class AuthService {
               // At this point we know for sure that we have to ask the
               // user to log in, so we redirect them to the IdServer to
               // enter credentials.
-              if (this.autoLogin) {
+              if (this.configService.autoLogin) {
                 // Force user to login
                 console.log('Forcing user to log in');
                 this.login();
@@ -168,7 +161,7 @@ export class AuthService {
   private checkUserInteractionRequiredOnRefreshFailure(result: any): boolean {
     // Only consider situations where it's reasonably sure that sending the
     // user to the IdServer will help.
-    const errorResponsesRequiringUserInteraction = [
+    const errorCodes = [
       // OAuth2 error codes
       // See RFC https://tools.ietf.org/html/rfc6749#section-5.2
       'invalid_grant',
@@ -186,7 +179,7 @@ export class AuthService {
 
     return result
         && result[k]
-        && errorResponsesRequiringUserInteraction.indexOf(result[k].error) >= 0;
+        && errorCodes.indexOf(result[k].error) >= 0;
   }
 
   public login(targetUrl?: string) {
@@ -194,13 +187,13 @@ export class AuthService {
   }
 
   public logout() {
-    if (this.revokeTokenOnLogout) {
+    if (this.configService.revokeTokenOnLogout) {
       const token = this.oauthService.getAccessToken(); // Get token before logging out which clears the token  
       this.revokeToken(token);
     }
 
-    if (this.shibbolethLogoutUrl) {
-      this.http.get(this.shibbolethLogoutUrl, {responseType: 'text'})
+    if (this.configService.shibboleth) {
+      this.http.get(this.configService.shibbolethLogoutUrl, {responseType: 'text'})
       .subscribe(result => {
           console.log('Shibboleth successfully logged out');
       }, (error) => {
