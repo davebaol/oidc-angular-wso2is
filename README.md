@@ -28,7 +28,7 @@ Main features are strictly related to the authorization process, especially from
 
 ### Additional features
 The project supports a few additional features that can help you with authentication in your Angular apps:
-- **API call interceptor**: By intercepting calls to the API's the access token is silently attached to request headers.
+- **API call interceptor**: By intercepting calls to the API's the access token is silently attached to request headers. In fact, this feature is directly provided by the [angular-oauth2-oidc](https://github.com/manfredsteyer/angular-oauth2-oidc) library itself.
 - **Route guards**: Angular's route guards are interfaces which can tell the router whether or not it should allow navigation to a requested route: 
   - An auth guard that forces you to login when navigating to protected routes
   - An auth guard that just prevents you from navigating to protected routes
