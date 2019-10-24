@@ -1,5 +1,5 @@
 {
-  "name": "sample-oidc-angular-wso2is",
+  "name": "oidc-angular-wso2is",
   "version": "0.9.0",
   "description": "Example of an Angular single-page application demonstrating OAuth2 code flow with PKCE using WSO2 Identity Server",
   "main": "index.html",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/davebaol/sample-oidc-angular-wso2is.git"
+    "url": "https://github.com/davebaol/oidc-angular-wso2is.git"
   },
   "scripts": {
     "ng": "ng",

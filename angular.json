@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "sample-oidc-angular-wso2is": {
+    "oidc-angular-wso2is": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/sample-oidc-angular-wso2is",
+            "outputPath": "dist/oidc-angular-wso2is",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sample-oidc-angular-wso2is:build"
+            "browserTarget": "oidc-angular-wso2is:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "sample-oidc-angular-wso2is:build:production"
+              "browserTarget": "oidc-angular-wso2is:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sample-oidc-angular-wso2is:build"
+            "browserTarget": "oidc-angular-wso2is:build"
           }
         },
         "test": {
@@ -113,16 +113,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "sample-oidc-angular-wso2is:serve"
+            "devServerTarget": "oidc-angular-wso2is:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "sample-oidc-angular-wso2is:serve:production"
+              "devServerTarget": "oidc-angular-wso2is:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "sample-oidc-angular-wso2is"
+  "defaultProject": "oidc-angular-wso2is"
 }

@@ -1,4 +1,4 @@
-# sample-oidc-angular-wso2is
+# oidc-angular-wso2is
 
 Example of an [Angular](https://angular.io/) single-page application demonstrating [OAuth 2](https://oauth.net/2/) / [OpenID Connect (OIDC)](https://openid.net/connect/) authentication using [WSO2 Identity Server](https://wso2.com/identity-and-access-management/).
 
