@@ -79,7 +79,14 @@ The project is a standard Angular CLI application. If you open a command prompt 
   - Set property `responseType` according to the authorization grant you have previously chosen for the service provider in WSO2 IS: `'code'` for code flow and `''` for implicit flow.
 - Run `npm install` to install dependencies.
 - Run `ng serve` to startup a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Troubleshooting
+Here is a list of known symptoms and malfunctions with their respective solutions:
 - If you encounter a CORS issue apply solution #2 reported at https://docs.wso2.com/display/IS580/Invoking+an+Endpoint+from+a+Different+Domain
+- If you get `403 Forbidden` on logout it's likely due to a cross-site request forgery (CSRF) issue. In file `<HOME_IS>/repository/conf/security/Owasp.CsrfGuard.Carbon.properties` enable the csrfguard filter by acting on the following property
+  ```
+  org.owasp.csrfguard.Enabled = true
+  ```
 
 ## License
 
