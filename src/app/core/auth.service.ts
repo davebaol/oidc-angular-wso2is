@@ -192,16 +192,6 @@ export class AuthService {
       this.revokeToken(token);
     }
 
-    if (this.configService.shibboleth) {
-      this.http.get(this.configService.shibbolethLogoutUrl, {responseType: 'text'})
-      .subscribe(result => {
-          console.log('Shibboleth successfully logged out');
-      }, (error) => {
-          console.error('Something went wrong on Shibboleth logout');
-          return throwError(error);
-      });
-    }
-
     this.oauthService.logOut();
   }
 

@@ -16,8 +16,4 @@ export class ConfigService {
   // Set this to true to revoke access and refresh tokens on logout
   public readonly revokeTokenOnLogout = true;
 
-  // Set this to false if you don't use Shibboleth
-  public readonly shibboleth = true;
-  public readonly shibbolethLogoutUrl = `${this.authUrl}/tst_liv1_spid_GASP_REGIONE/Shibboleth.sso/Logout?logout=SERVICE_PROVIDER_TST_APIM-A2C-2_ECOSIS.CSI.IT_LIV1_GASP_REGIONE`;
-
 }
