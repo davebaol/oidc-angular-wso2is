@@ -2,7 +2,9 @@
 
 Example of an [Angular](https://angular.io/) single-page application demonstrating [OAuth 2](https://oauth.net/2/) / [OpenID Connect (OIDC)](https://openid.net/connect/) authentication using [WSO2 Identity Server](https://wso2.com/identity-and-access-management/).
 
-The entire project relies on [the `angular-oauth2-oidc` library](https://github.com/manfredsteyer/angular-oauth2-oidc) and is tested with **WSO2 Identity Server 5.8.0**.
+The entire project relies on [the `angular-oauth2-oidc` library](https://github.com/manfredsteyer/angular-oauth2-oidc) and has been successfully tested with
+- WSO2 Identity Server 5.7.0 as key manager for WSO2 API Manager 2.6.0 (both with recent WUM update)
+- WSO2 Identity Server 5.8.0
 
 The application is supposed to look somewhat like this (click the image to enlarge it):
 <p align="center">
@@ -39,7 +41,7 @@ The project supports a few additional features that can help you with authentica
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
-- [WSO2 Identity Server 5.8.0 or higher](https://wso2.com/identity-and-access-management/)
+- [WSO2 Identity Server 5.7.0 or higher](https://wso2.com/identity-and-access-management/)
 - [npm](https://www.npmjs.com/get-npm)
 
 ### Installing
