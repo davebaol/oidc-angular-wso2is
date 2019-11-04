@@ -22,7 +22,7 @@ Most interesting ones can be found in [the core module](./src/app/core).
 Main features are strictly related to the authorization process, especially from a generic single-page application:
 - **OAuth2 grants**: Support for either [code flow](https://oauth.net/2/grant-types/authorization-code/) with [PKCE](https://oauth.net/2/pkce/) (recommended) or [implicit flow](https://oauth.net/2/grant-types/implicit/) for authorization
 - **OpenID discovery**: This process determines the location of the OpenID Provider.
-- **Silent refresh on startup**: Trying silent refresh on app startup before potientially starting a login flow gives the Identity Server the opportunity to recognize the user (tipically through a cookie), so avoiding an unnecessary login.
+- **Silent refresh on startup**: Trying silent refresh on app startup before potentially starting a login flow gives the Identity Server the opportunity to recognize the user (tipically through a cookie), so avoiding an unnecessary login.
 - **Token revocation on logout**: When this feature is enabled (see [Preparing sources](#two-preparing-sources)) the access token and its refresh token (if present) are revoked when the user logs out.
 - **Auto-login**: When this feature is enabled (see [Preparing sources](#two-preparing-sources)) the user is automatically redirected to the login page on the STS server.
 - **OpenID's external logout**
