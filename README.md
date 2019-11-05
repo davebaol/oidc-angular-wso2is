@@ -85,7 +85,7 @@ The project is a standard Angular CLI application. If you open a command prompt 
 ## Troubleshooting
 Here is a list of known symptoms and malfunctions with their respective solutions:
 - If you encounter a CORS issue apply solution #2 reported at https://docs.wso2.com/display/IS580/Invoking+an+Endpoint+from+a+Different+Domain
-- If you get `403 Forbidden` on logout it's likely due to a cross-site request forgery (CSRF) issue. In file `<HOME_IS>/repository/conf/security/Owasp.CsrfGuard.Carbon.properties` try disabling the csrfguard filter like that
+- If you're dealing with different domains and you get `403 Forbidden` on login or logout, it's likely due to a cross-site request forgery (CSRF) issue. In file `<HOME_IS>/repository/conf/security/Owasp.CsrfGuard.Carbon.properties` try disabling the csrfguard filter like that
   ```
   org.owasp.csrfguard.Enabled = false
   ```
