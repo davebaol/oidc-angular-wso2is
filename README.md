@@ -2,6 +2,8 @@
 
 Example of an [Angular](https://angular.io/) single-page application demonstrating [OAuth 2](https://oauth.net/2/) / [OpenID Connect (OIDC)](https://openid.net/connect/) authentication using [WSO2 Identity Server](https://wso2.com/identity-and-access-management/).
 
+> :pushpin: You may want to read the article [Guidelines for OAuth 2.0 / OpenID Connect](https://www.linkedin.com/pulse/guidelines-oauth-20-openid-connect-davide-sessi/) for more information and best practices on this topic.
+
 The entire project relies on [the `angular-oauth2-oidc` library](https://github.com/manfredsteyer/angular-oauth2-oidc) and has been successfully tested with
 - WSO2 Identity Server 5.7.0 as key manager for WSO2 API Manager 2.6.0 (both with recent WUM update)
 - WSO2 Identity Server 5.8.0
