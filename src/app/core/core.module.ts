@@ -2,7 +2,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { AuthConfig, JwksValidationHandler, OAuthModule, OAuthModuleConfig, OAuthStorage, ValidationHandler } from 'angular-oauth2-oidc';
 
-import { authConfigFactory } from './auth-config-factory';
 import { AuthGuardWithForcedLogin } from './auth-guard-with-forced-login.service';
 import { AuthGuard } from './auth-guard.service';
 import { authModuleConfigFactory } from './auth-module-config-factory';
@@ -12,6 +11,10 @@ import { ConfigService } from './config.service';
 // We need a factory since localStorage is not available at AOT build time
 export function storageFactory() : OAuthStorage {
   return localStorage
+}
+
+export function authConfigFactory(configService: ConfigService): AuthConfig {
+  return configService.authConfig;
 }
 
 @NgModule({
