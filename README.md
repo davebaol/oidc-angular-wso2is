@@ -2,6 +2,8 @@
 
 Example of an [Angular](https://angular.io/) single-page application demonstrating [OAuth 2](https://oauth.net/2/) / [OpenID Connect (OIDC)](https://openid.net/connect/) authentication using [WSO2 Identity Server](https://wso2.com/identity-and-access-management/).
 
+> :pushpin: You may want to read the article [Guidelines for OAuth 2.0 / OpenID Connect](https://www.linkedin.com/pulse/guidelines-oauth-20-openid-connect-davide-sessi/) for more information and best practices on this topic.
+
 The entire project relies on [the `angular-oauth2-oidc` library](https://github.com/manfredsteyer/angular-oauth2-oidc) and has been successfully tested with
 - WSO2 Identity Server 5.7.0 as key manager for WSO2 API Manager 2.6.0 (both with recent WUM update)
 - WSO2 Identity Server 5.8.0
@@ -22,7 +24,7 @@ Most interesting ones can be found in [the core module](./src/app/core).
 Main features are strictly related to the authorization process, especially from a generic single-page application:
 - **OAuth2 grants**: Support for either [code flow](https://oauth.net/2/grant-types/authorization-code/) with [PKCE](https://oauth.net/2/pkce/) (recommended) or [implicit flow](https://oauth.net/2/grant-types/implicit/) for authorization
 - **OpenID discovery**: This process determines the location of the OpenID Provider.
-- **Silent refresh on startup**: Trying silent refresh on app startup before potentially starting a login flow gives the Identity Server the opportunity to recognize the user (tipically through a cookie), so avoiding an unnecessary login.
+- **Silent refresh on startup**: Trying silent refresh on app startup before potentially starting a login flow gives the Identity Server the opportunity to recognize the user (typically through a cookie), so avoiding an unnecessary login.
 - **Token revocation on logout**: When this feature is enabled (see [Preparing sources](#two-preparing-sources)) the access token and its refresh token (if present) are revoked when the user logs out.
 - **Auto-login**: When this feature is enabled (see [Preparing sources](#two-preparing-sources)) the user is automatically redirected to the login page on the STS server.
 - **OpenID's external logout**
@@ -85,7 +87,7 @@ The project is a standard Angular CLI application. If you open a command prompt 
 ## Troubleshooting
 Here is a list of known symptoms and malfunctions with their respective solutions:
 - If you encounter a CORS issue apply solution #2 reported at https://docs.wso2.com/display/IS580/Invoking+an+Endpoint+from+a+Different+Domain
-- If you get `403 Forbidden` on logout it's likely due to a cross-site request forgery (CSRF) issue. In file `<HOME_IS>/repository/conf/security/Owasp.CsrfGuard.Carbon.properties` try disabling the csrfguard filter like that
+- If you're dealing with different domains and you get `403 Forbidden` on login or logout, it's likely due to a cross-site request forgery (CSRF) issue. In file `<HOME_IS>/repository/conf/security/Owasp.CsrfGuard.Carbon.properties` try disabling the csrfguard filter like that
   ```
   org.owasp.csrfguard.Enabled = false
   ```
