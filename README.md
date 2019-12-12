@@ -84,6 +84,10 @@ The project is a standard Angular CLI application. If you open a command prompt 
 - Run `npm install` to install dependencies.
 - Run `ng serve` to startup a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+#### :three: Docker
+	docker image build -t <IMAGE>:<TAG> .
+	docker run -p 4200:4200 -dit <IMAGE>:<TAG>
+
 ## Troubleshooting
 Here is a list of known symptoms and malfunctions with their respective solutions:
 - If you encounter a CORS issue apply solution #2 reported at https://docs.wso2.com/display/IS580/Invoking+an+Endpoint+from+a+Different+Domain
